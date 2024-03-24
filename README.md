@@ -64,6 +64,8 @@ python, py-cord, flask, bootstrap, [Creative Tim](https://www.creative-tim.com/)
 
 ## Run the bot
 
+Install Python 3.10 - 3.12
+
 Clone the project
 
 ```bash
