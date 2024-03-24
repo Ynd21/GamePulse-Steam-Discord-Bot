@@ -66,6 +66,24 @@ Install dependencies
   pip install -r requirements.txt
 ```
 
+Edit Settings.ini
+
+```bash
+  [DISCORD]
+token = Your Discord Token
+channel_id = Channel ID to post Server Status 
+status_image = Banner Image Used for the Embed from above
+guild_id = Discord Guild ID 
+allowed_user_ids = Discord User ID, seperated by a coma 
+client_id = Discord Bot Client ID
+client_secret = Discord Bot Secret
+redirect_uri = Discord Bot Redirect URL
+avatar = assets/lol.png (default - add anything you want into the assets folder, ref it here for the avatar image)
+bot_username = Bot's Name
+bot_version = Just a Number
+community_name = Your Community Name
+```
+
 Start the server
 
 ```bash
