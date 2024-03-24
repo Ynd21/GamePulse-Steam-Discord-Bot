@@ -36,13 +36,11 @@ Contributions are always welcome! Submit a request!
 
 ## Screenshots
 
-![App Screenshot](https://i.imgur.com/tZw0LMy.png)
-![App Screenshot](https://i.imgur.com/cZVYTsg.png)
-
-| Italic             |  Block letters |
+| Discord            |  WebUI |
 :-------------------------:|:-------------------------:
 ![App Screenshot](https://i.imgur.com/tZw0LMy.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
-![App Screenshot](https://i.imgur.com/tZw0LMy.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
+![App Screenshot](https://i.imgur.com/jwmT3C9.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
+![App Screenshot](https://i.imgur.com/Myd3h8Y.png) |  ![App Screenshot](https://i.imgur.com/UUQDolS.png)
 
 ## Tech Stack
 
