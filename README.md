@@ -36,7 +36,7 @@ Contributions are always welcome! Submit a request!
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://i.imgur.com/tZw0LMy.png)
 
 
 ## Tech Stack
