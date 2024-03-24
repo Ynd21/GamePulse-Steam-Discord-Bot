@@ -28,11 +28,9 @@ GamePulse uses Python-A2S to Query Steam Game Servers and updates Voice Channels
 - Embeds a Message in a Text Channel Displaying Server Information (Status, Players, Quick Join URL)
 - Add Servers via Slash Commands and look at Server History
 
-
-## Contributing
+## ❤️ Contributing
 
 Contributions are always welcome! Submit a request! 
-
 
 ## Screenshots
 
@@ -50,7 +48,7 @@ Contributions are always welcome! Submit a request!
     </tr>
 <tr>
 	<td width="50%"><img src="https://i.imgur.com/jwmT3C9.png"/></td>
-      <td width="50%"><img src="https://i.imgur.com/0KQj2pa.gif"/></td>
+      <td width="50%"><img src="[https://i.imgur.com/0KQj2pa.gif](https://i.imgur.com/sqCc7hi.png)"/></td>
 </tr>
     <tr>
       <td width="50%"><img src="https://i.imgur.com/Myd3h8Y.png"/></td>
@@ -58,8 +56,6 @@ Contributions are always welcome! Submit a request!
     </tr>	  
   </tbody>
 </table>
-
-![App_Gif](https://i.imgur.com/0KQj2pa.gif)
 
 ## Tech Stack
 
