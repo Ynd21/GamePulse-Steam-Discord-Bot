@@ -31,6 +31,8 @@ venv/
 *.ini
 *.db
 *.txt
+__pycache__/
+.gitignore
 
 # OS generated files #
 ######################
