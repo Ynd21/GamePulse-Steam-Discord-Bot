@@ -58,6 +58,7 @@ Contributions are always welcome! Submit a request!
     </tr>	  
   </tbody>
 </table>
+![]https://i.imgur.com/0KQj2pa.gif
 
 ## Tech Stack
 
