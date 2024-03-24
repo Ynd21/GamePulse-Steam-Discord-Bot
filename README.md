@@ -39,6 +39,11 @@ Contributions are always welcome! Submit a request!
 ![App Screenshot](https://i.imgur.com/tZw0LMy.png)
 ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
 
+| Italic             |  Block letters |
+:-------------------------:|:-------------------------:
+![App Screenshot](https://i.imgur.com/tZw0LMy.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
+![App Screenshot](https://i.imgur.com/tZw0LMy.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
+
 ## Tech Stack
 
 python, py-cord, flask, bootstrap, [Creative Tim](https://www.creative-tim.com/)
