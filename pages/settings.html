@@ -1,0 +1,272 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/lol.png">
+  <link rel="icon" type="image/png" href="../assets/lol.png">
+  <title>
+    GamePulse Discord Bot
+  </title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+qdLaVUN7Fbme8MfTJwxH/4y39zJ5Fb8LJ1UueJPCmGzR2B3md/4iSlL+4/P+N3Y" crossorigin="anonymous">
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+  font-family: 'Roboto', sans-serif; /* Use a modern sans-serif font */
+  background-color: #f4f7f6; /* Soft background color */
+  color: #333; /* Dark gray color for general text for better readability */
+}
+input[type='text'], input[type='password'], button {
+  border: 1px solid #ddd; /* Subtle borders for inputs and buttons */
+  border-radius: 4px; /* Rounded borders */
+  padding: 10px 15px; /* Comfortable padding inside inputs and buttons */
+  font-size: 16px; /* Slightly larger font size for readability */
+  outline: none; /* Remove focus outline for custom styling */
+}
+
+input[type='text']:focus, input[type='password']:focus {
+  border-color: #2196F3; /* Highlight border on focus */
+}
+
+button {
+  background-color: #2196F3; /* Bright color for buttons */
+  color: #fff; /* White text on buttons */
+  cursor: pointer; /* Pointer cursor for button hover */
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+button:hover {
+  background-color: #1976D2; /* Darken button background on hover */
+}
+
+.remove-pair, .remove-section {
+  background-color: #ff1744; /* Red color for delete actions */
+}
+
+.add-key-value, .add-section {
+  background-color: #4CAF50; /* Green color for add actions */
+}
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to card for depth */
+}  
+button.remove-pair.bg-red-600.text-white.px-2.py-1.rounded.mt-2.sm\:mt-0 {
+    background-color: red;
+}  
+
+.mb-2 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: var(--border-radius);
+    margin-bottom: 2px; /* Ensuring space between entries */
+    cursor: pointer;
+    background: var(--input-background-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mb-2:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+/* CSS for cool mouse-over effects */
+.table tbody tr {
+  transition: box-shadow 0.3s ease; /* Smooth transition effect */
+}
+
+.table tbody tr:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+.text-secondary {
+    color: #ffffff !important;
+}
+.bg-gradient-primary {
+    background-image: linear-gradient(195deg, #2196F3 15%, #1976D2 70%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+.dropdown-option {
+    background-color: #000000;
+    color: #ffffff;
+}
+button.add-key-value.bg-blue-500.text-white.px-2.py-1.rounded.mt-2 {
+    background-color: green;
+}
+button.add-section.bg-green-500.text-white.px-4.py-2.rounded {
+    background: blue;
+}
+button.bg-blue-500.text-white.px-4.py-2.rounded.mt-4 {
+    background-color: green;
+}
+.key-value-pair input[type='text'] {
+  flex: 1 0 auto; /* make inputs flexible */
+  margin-right: 10px; /* add some space between the input and button */
+}
+/* Select the odd input fields and apply the width */
+.key-value-pair input[type='text']:nth-of-type(odd) {
+  width: calc(15% - 60px); /* adjust the width for odd inputs */
+}
+
+/* Select the even input fields and apply the width */
+.key-value-pair input[type='text']:nth-of-type(even) {
+  width: calc(45% - 60px); /* adjust the width for even inputs */
+}
+body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pb-2 > table > thead > tr > th:nth-child(1) {
+padding-left: 5%;
+}
+.table {
+    margin-left: 50px;
+    width:95%;
+}
+iframe::-webkit-scrollbar {
+  display: none;
+}
+
+/* Universal approach: Set a large height and clip the iframe */
+iframe {
+  height: 600px; /* Set a height larger than the content needs */
+  overflow: hidden;
+}
+</style>
+</head>
+
+<body class="g-sidenav-show dark-version bg-gray-200">
+  {% include '_sidebar.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Discord Bot Settings</h6>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <table class="table align-middle align-items-center mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Key</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Value</th>
+                    </tr>
+                </thead></table>              
+              
+                <form method="POST" action="/settings" class="space-y-6">
+                  <div id="sections-container" class="mx-auto">
+                    {% for section in config.sections() %}
+                    <div class="section p-4 rounded shadow mb-4" data-section-name="{{ section }}">
+                      <input type="hidden" name="section_name" value="{{ section }}">
+                      <div class="key-value-pairs mt-4">
+                        {% for key, value in config.items(section) %}
+                        <div class="key-value-pair flex space-x-2 mb-2">
+                          <input type="text" name="{{ section }}_key[]" value="{{ key }}" class="text-white border p-2 flex-1 rounded mb-2">
+                          <input type="text" name="{{ section }}_value[]" value="{{ value }}" class="text-white border p-2 flex-1 rounded mb-2">
+                          <button type="button" class="remove-pair bg-red-600 text-white px-2 py-1 rounded mt-2" onclick="removeKeyValuePair(this)">(X)</button>
+                        </div>
+                        {% endfor %}
+                      </div>
+                      <button type="button" class="add-key-value bg-blue-500 text-white px-2 py-1 rounded mt-2" onclick="addKeyValuePair(this)">Add Key/Value</button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <button type="button" class="add-section bg-green-500 text-white px-4 py-2 rounded" onclick="addSection()">Add Section</button>
+                  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">Save Settings</button>
+                </form>
+                
+            
+                <script>
+                    function addSection() {
+                        const container = document.getElementById('sections-container');
+                        const section = document.createElement('div');
+                        section.className = 'section bg-white p-4 rounded shadow';
+                        section.innerHTML = `
+                            <div class="flex justify-between items-center">
+                                <input type="text" name="section_name" placeholder="Section Name" class="border p-2">
+                                <button type="button" class="remove-section bg-red-500 text-white px-2 py-1 rounded" onclick="removeSection(this)">Remove Section</button>
+                            </div>
+                            <div class="key-value-pairs mt-4">
+                                <!-- Key/Value pairs will be added here -->
+                            </div>
+                            <button type="button" class="add-key-value bg-blue-500 text-white px-2 py-1 rounded mt-2" onclick="addKeyValuePair(this)">Add Key/Value</button>
+                        `;
+                        container.appendChild(section);
+                    }
+            
+                    function addKeyValuePair(button) {
+                        const section = button.closest('.section');
+                        const pairsContainer = section.querySelector('.key-value-pairs');
+                        const pair = document.createElement('div');
+                        pair.className = 'key-value-pair flex space-x-2 mb-2';
+                        const sectionName = section.querySelector('input[name="section_name"]').value || 'new_section';
+                        pair.innerHTML = `
+                            <input type="text" name="${sectionName}_key[]" placeholder="Key" class="border p-2 flex-1">
+                            <input type="text" name="${sectionName}_value[]" placeholder="Value" class="border p-2 flex-1">
+                            <button type="button" class="remove-pair bg-red-500 text-white px-2 py-1 rounded" onclick="removeKeyValuePair(this)">Remove</button>
+                        `;
+                        pairsContainer.appendChild(pair);
+                    }
+            
+                    function removeSection(button) {
+                        button.closest('.section').remove();
+                    }
+            
+                    function removeKeyValuePair(button) {
+                        button.closest('.key-value-pair').remove();
+                    }
+                </script>
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+
+
+
+
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+
+
+</body>
+
+</html>

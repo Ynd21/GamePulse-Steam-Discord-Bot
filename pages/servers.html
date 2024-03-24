@@ -1,0 +1,573 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/lol.png">
+  <link rel="icon" type="image/png" href="../assets/lol.png">
+  <title>
+    GamePulse Discord Bot
+  </title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+qdLaVUN7Fbme8MfTJwxH/4y39zJ5Fb8LJ1UueJPCmGzR2B3md/4iSlL+4/P+N3Y" crossorigin="anonymous">
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* CSS for cool mouse-over effects */
+.table tbody tr {
+  transition: box-shadow 0.3s ease; /* Smooth transition effect */
+}
+
+.table tbody tr:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+.text-secondary {
+    color: #ffffff !important;
+}
+.bg-gradient-primary {
+    background-image: linear-gradient(195deg, #2196F3 15%, #1976D2 70%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+.dropdown-option {
+    background-color: #000000;
+    color: #ffffff;
+}
+iframe::-webkit-scrollbar {
+  display: none;
+}
+
+/* Universal approach: Set a large height and clip the iframe */
+iframe {
+  height: 600px; /* Set a height larger than the content needs */
+  overflow: hidden;
+}
+</style>
+</head>
+
+<body class="g-sidenav-show dark-version bg-gray-200">
+  {% include '_sidebar.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Game Servers</h6>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Server Name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Game Type</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+					  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Players Online</th>
+					  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ping</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Last Refresh</th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+<tbody>
+  {% for server in servers %}
+  <tr class="main-row" data-server-id="{{ server.id }}">
+    <td>
+      <div class="d-flex px-2 py-1">
+        <div>
+          <img src="{% if server.Server_Image %}{{ server.Server_Image }}{% else %}https://cdn-icons-png.flaticon.com/512/954/954991.png{% endif %}" class="avatar avatar-sm me-3 border-radius-lg" alt="{{ server.Server_Name }}">
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <h6 class="mb-0 text-sm">{{ server.Server_Name }}</h6>
+        </div>
+      </div>
+    </td>
+    <td>
+      <p class="text-xs font-weight-bold mb-0">{{ server.Game_Type }}</p>
+    </td>
+    <td class="align-middle text-center text-sm">
+      <span class="badge badge-sm bg-gradient-{{ 'success' if server.Server_Status == 'Online' else 'danger' }}">{{ 'Online' if server.Server_Status == 'Online' else 'Offline' }}</span>
+    </td>
+    <td class="align-middle text-center">
+      <span class="text-secondary text-xs font-weight-bold">{{ server.Players_Count }} Connected</span>
+    </td>	
+    <td class="align-middle text-center ping-cell" data-ping="{{ server.Server_Last_MS }}">
+      <span class="text-xs font-weight-bold" style="color:
+        {% if server.Server_Last_MS <= 1 %} red;
+        {% elif server.Server_Last_MS <= 60 %} lightgreen;
+        {% elif server.Server_Last_MS <= 75 %} green;
+        {% elif server.Server_Last_MS <= 100 %} yellow;
+        {% elif server.Server_Last_MS <= 130 %} lightcoral;
+        {% elif server.Server_Last_MS <= 200 %} red;
+        {% else %} darkred;
+        {% endif %}">
+        {{ server.Server_Last_MS }} ms
+      </span>
+    </td>
+    <td class="align-middle text-center">
+      <span class="text-secondary text-xs font-weight-bold">{{ server.Date_Added }}</span>
+    </td>
+    <td class="align-middle">
+      <a href="javascript:;" class="btn btn-primary font-weight-bold text-xs edit-server-btn"
+      data-id="{{ server.id }}"
+      data-server-name="{{ server.Server_Name }}"
+      data-server-ip="{{ server.Server_IP }}"
+      data-server-port="{{ server.Server_Port }}"
+      data-server-image="{{ server.Server_Image }}"
+      data-server-emoji="{{ server.Server_Emoji }}"
+      data-server-quick-join-url="{{ server.Server_Quick_Join_URL }}"
+      data-users-title="{{ server.Users_Title }}"
+      data-status-embed="{{ server.Status_Embed }}"
+      data-server-status-channel-id="{{ server.Server_Status_Channel_ID }}"
+      data-user-online-count-channel-id="{{ server.User_Online_Count_Channel_ID }}">
+      Edit
+   </a>
+   <a href="javascript:;" class="btn btn-danger btn-sm delete-server-btn" data-id="{{ server.id }}">Delete</a>
+    </td>
+  </tr>
+  <tr class="expand-row" style="display: none;">
+    <td colspan="3">
+      <div class="graph-container {% if loop.index is odd %}bg-gradient-success shadow-success{% else %}bg-gradient-dark shadow-dark{% endif %} border-radius-lg py-3 pe-1">
+        <canvas id="graph-{{ server.id }}" width="1600" height="351" style="display: block; box-sizing: border-box; height: 351px; width: 1600px;"></canvas>
+        </div>
+    </td>
+</tr>
+  {% endfor %}
+</tbody>
+
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Button to Open "Add Server" Modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addServerModal">
+  Add Server
+</button>
+
+<!-- "Add Server" Modal -->
+<div class="modal fade" id="addServerModal" tabindex="-1" aria-labelledby="addServerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card my-4">
+      <div class="modal-header shadow-primary border-radius-lg">
+        <h5 class="modal-title" id="addServerModalLabel">Add New Server</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="addServerForm">
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <label for="add_server_name" class="form-label">Server Name</label>
+            <input type="text" class="form-control" id="add_server_name" name="server_name" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_server_ip" class="form-label">Server IP</label>
+            <input type="text" class="form-control" id="add_server_ip" name="server_ip" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_server_port" class="form-label">Server Port</label>
+            <input type="number" class="form-control" id="add_server_port" name="server_port" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_server_image" class="form-label">Server Image URL</label>
+            <input type="text" class="form-control" id="add_server_image" name="server_image">
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_server_emoji" class="form-label">Server Emoji</label>
+            <input type="text" class="form-control" id="add_server_emoji" name="server_emoji">
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_server_quick_join_url" class="form-label">Server Quick Join URL</label>
+            <input type="text" class="form-control" id="add_server_quick_join_url" name="server_quick_join_url">
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_users_title" class="form-label">Users Title</label>
+            <input type="text" class="form-control" id="add_users_title" name="users_title">
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_status_embed" class="form-label">Status Embed</label>
+            <select class="form-control" id="add_status_embed" name="status_embed">
+              <option value="true" class="dropdown-option">True</option>
+              <option value="false" class="dropdown-option">False</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_server_status_channel_id" class="form-label">Server Status Channel ID</label>
+            <input type="number" class="form-control" id="add_server_status_channel_id" name="server_status_channel_id">
+          </div>
+          <div class="form-group mb-3">
+            <label for="add_user_online_count_channel_id" class="form-label">User Online Count Channel ID</label>
+            <input type="number" class="form-control" id="add_user_online_count_channel_id" name="user_online_count_channel_id">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Server</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add custom CSS -->
+<style>
+  .modal-content {
+    background-color: #ffffff; /* White background */
+    border: none; /* No border */
+    border-radius: 0.5rem; /* Rounded corners */
+  }
+
+  .modal-header {
+    background-image: linear-gradient(195deg, #2196F3 15%, #1976D2 70%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    color: #ffffff; /* White header text */
+    border-bottom: none; /* No border */
+    border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+  }
+  .modal-title {
+    color: white;
+  }
+
+  .modal-footer {
+    border-top: none; /* No border */
+    border-radius: 0 0 0.5rem 0.5rem; /* Rounded bottom corners */
+  }
+
+  .btn-primary {
+    background-color: #3f51b5; /* Primary button background */
+    border-color: #3f51b5; /* Primary button border */
+  }
+
+  .btn-primary:hover {
+    background-color: #2c387e; /* Darker primary color on hover */
+    border-color: #2c387e; /* Darker primary color border on hover */
+  }
+
+  .btn-secondary {
+    background-color: #6c757d; /* Gray button background */
+    border-color: #6c757d; /* Gray button border */
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+    border-color: #545b62; /* Darker gray border on hover */
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('addServerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('/add-server', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.success) {
+          $('#addServerModal').modal('hide');
+          alert('Server added successfully! Will appear within 3 minutes (Next refresh!)');
+          location.reload(); // Optionally reload to show the new entry
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+      });
+    });
+  });
+  </script>
+
+    </div>
+  </main>
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var mainRows = document.querySelectorAll(".main-row");
+
+            mainRows.forEach(function(row) {
+                row.addEventListener("click", function(event) {
+                    var expandRow = row.nextElementSibling;
+                    if (expandRow) {
+                        if (expandRow.style.display === "none") {
+                            expandRow.style.display = "table-row";
+                            var graphContainer = expandRow.querySelector(".graph-container");
+                            if (graphContainer) {
+                                graphContainer.style.display = "block";
+                                var serverId = row.dataset.serverId;
+                                loadGraphData(serverId, graphContainer);
+                            }
+                        } else {
+                            expandRow.style.display = "none";
+                            var graphContainer = expandRow.querySelector(".graph-container");
+                            if (graphContainer) {
+                                graphContainer.style.display = "none";
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
+        function loadGraphData(serverId, container) {
+            fetch('/user-count-data/' + serverId)
+                .then(response => response.json())
+                .then(data => {
+                    renderGraph(data, container);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function renderGraph(data, container) {
+    if (Array.isArray(data.playerCounts) && Array.isArray(data.timestamps)) {
+        var ctx = container.querySelector("canvas").getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.timestamps, // Use timestamps directly
+                datasets: [{
+                    label: 'User Count',
+                    data: data.playerCounts, // Use playerCounts directly
+                    borderColor: 'blue',
+                    backgroundColor: 'transparent',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Set the color of the ticks (labels) on the y-axis to white
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white' // Set the color of the ticks (labels) on the x-axis to white
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        console.error("Data is not in the expected format:", data);
+    }
+}
+    </script>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+
+
+
+<!-- Edit Server Modal -->
+<div class="modal fade" id="editServerModal" tabindex="-1" role="dialog" aria-labelledby="editServerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content card my-4">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editServerModalLabel">Edit Server</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <form id="editServerForm">
+        <div class="modal-body">
+          <!-- Form fields -->
+          <input type="hidden" id="server_id" name="server_id">
+          <div class="form-group">
+            <label for="server_name">Server Name</label>
+            <input type="text" class="form-control" id="server_name" name="server_name" required>
+          </div>
+          <div class="form-group">
+            <label for="server_ip">Server IP</label>
+            <input type="text" class="form-control" id="server_ip" name="server_ip" required>
+          </div>
+          <div class="form-group">
+            <label for="server_port">Server Port</label>
+            <input type="number" class="form-control" id="server_port" name="server_port" required>
+          </div>
+          <div class="form-group">
+            <label for="server_image">Server Image URL</label>
+            <input type="text" class="form-control" id="server_image" name="server_image">
+          </div>
+          <div class="form-group">
+            <label for="server_emoji">Server Emoji</label>
+            <input type="text" class="form-control" id="server_emoji" name="server_emoji">
+          </div>
+          <div class="form-group">
+            <label for="server_quick_join_url">Server Quick Join URL</label>
+            <input type="text" class="form-control" id="server_quick_join_url" name="server_quick_join_url">
+          </div>
+          <div class="form-group">
+            <label for="users_title">Users Title</label>
+            <input type="text" class="form-control" id="users_title" name="users_title">
+          </div>
+          <div class="form-group">
+            <label for="status_embed">Status Embed</label>
+            <select class="form-control" id="status_embed" name="status_embed">
+              <option value="true" class="dropdown-option">True</option>
+              <option value="false" class="dropdown-option">False</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="server_status_channel_id">Server Status Channel ID</label>
+            <input type="number" class="form-control" id="server_status_channel_id" name="server_status_channel_id">
+          </div>
+          <div class="form-group">
+            <label for="user_online_count_channel_id">User Online Count Channel ID</label>
+            <input type="number" class="form-control" id="user_online_count_channel_id" name="user_online_count_channel_id">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Edit server button click handler
+    document.querySelectorAll('.edit-server-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Extract server data from data attributes of the button
+        const serverId = button.getAttribute('data-id');
+        const serverName = button.getAttribute('data-server-name');
+        const serverIp = button.getAttribute('data-server-ip');
+        const serverPort = button.getAttribute('data-server-port');
+        const serverImage = button.getAttribute('data-server-image');
+        const serverEmoji = button.getAttribute('data-server-emoji');
+        const serverQuickJoinUrl = button.getAttribute('data-server-quick-join-url');
+        const usersTitle = button.getAttribute('data-users-title');
+        const statusEmbed = button.getAttribute('data-status-embed');
+        const serverStatusChannelId = button.getAttribute('data-server-status-channel-id');
+        const userOnlineCountChannelId = button.getAttribute('data-user-online-count-channel-id');
+
+        // Log the variables to console for debugging
+        // console.log('Emoji:', button.getAttribute('data-server-emoji'), 'Quick Join URL:', button.getAttribute('data-server-quick-join-url'), 'Users Title:', button.getAttribute('data-users-title'), 'Status Channel ID:', button.getAttribute('data-server-status-channel-id'), 'Online Count Channel ID:', button.getAttribute('data-user-online-count-channel-id'));
+  
+        // Populate the form fields with extracted data
+        console.log("Setting server_id to:", serverId);
+        document.getElementById('server_id').value = serverId;
+        document.getElementById('server_name').value = serverName;
+        document.getElementById('server_ip').value = serverIp;
+        document.getElementById('server_port').value = serverPort;
+        document.getElementById('server_image').value = serverImage;
+        document.getElementById('server_emoji').value = serverEmoji;
+        document.getElementById('server_quick_join_url').value = serverQuickJoinUrl;
+        document.getElementById('users_title').value = usersTitle;
+        document.getElementById('status_embed').value = statusEmbed;
+        document.getElementById('server_status_channel_id').value = serverStatusChannelId;
+        document.getElementById('user_online_count_channel_id').value = userOnlineCountChannelId;
+  
+        // Show the modal with jQuery
+        $('#editServerModal').modal('show');
+      });
+    });
+  
+    // Form submission with fetch API
+    document.getElementById('editServerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('/update-server', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.success) {
+          // Close the modal and reload to show changes
+          $('#editServerModal').modal('hide');
+          location.reload();
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  
+    // Optional: If still facing issue with modal close, ensure Bootstrap and jQuery are correctly loaded
+  });
+  </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Listen for clicks on delete buttons
+      document.querySelectorAll('.delete-server-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          if (confirm('Are you sure you want to delete this server?')) {
+            const serverId = button.getAttribute('data-id');
+            fetch(`/delete-server/${serverId}`, {
+              method: 'POST',
+              // Include any necessary headers, CSRF tokens, etc.
+            })
+            .then(response => response.json())
+            .then(data => {
+              if(data.success) {
+                alert('Server deleted successfully!');
+                location.reload(); // Refresh the page to update the list of servers
+              } else {
+                alert('An error occurred. Please try again.');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+          }
+        });
+      });
+    });
+    </script>
+
+
+</body>
+
+</html>

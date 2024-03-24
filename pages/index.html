@@ -1,0 +1,700 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/lol.png">
+  <link rel="icon" type="image/png" href="../assets/lol.png">
+  <title>
+     GamePulse Discord Bot
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+.col-xl-3.col-sm-6.mb-xl-0.mb-4 {
+    padding-bottom: 15px;
+}
+html {
+    overflow: hidden;
+}
+.text-secondary {
+    color: #ffffff !important;
+}
+.bg-gradient-primary {
+    background-image: linear-gradient(195deg, #2196F3 15%, #1976D2 70%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+.slideit {
+    padding-left: 15%;
+    margin-right: 43%;
+}
+/* CSS for Server Card Mouseover Effect */
+.server-card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.server-card:hover {
+  transform: scale(1.05);
+}
+
+/* Override opacity for text on hover */
+.server-card:hover p {
+  opacity: 1 !important;
+}
+.dark-version .table> :not(caption)>*>* {
+    text-align: center;
+}
+
+.table-header {
+    margin-bottom: 15px;
+}
+
+.table-header h2 {
+    margin: 0;
+    color: #009879;
+    font-size: 24px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th, .styled-table td {
+    text-align: left;
+    padding: 12px;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.number, .points {
+    text-align: center;
+}
+/* Table Styles */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #141a39;
+}
+
+.styled-table thead tr {
+  background-color: #5c5be5;
+  color: #fff;
+}
+
+.styled-table td, .styled-table th {
+  padding: 1rem 2rem;
+}
+
+.styled-table tbody tr {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.styled-table tbody tr:not(:first-child):hover {
+  background-color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(92, 91, 229, 0.5);
+}
+
+/* Hover effect for entire row */
+.styled-table tbody tr:hover td {
+  background-color: transparent; /* Prevent individual cells from highlighting */
+}
+
+/* Table Header */
+.table-header h2 {
+  margin: 2rem; /* Adjusted margin for the header */
+  font-size: 1.7rem;
+  color: #141a39;
+  text-align: center;
+}
+
+/* Additional Styles */
+.number, .points {
+  text-align: center;
+}
+
+.points img.gold-medal {
+  margin-left: 1rem;
+  height: 2rem; /* Adjust size as necessary */
+}
+/* Styled table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff; /* Solid background color */
+  color: #333333; /* Dark text color */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Soft shadow */
+}
+
+/* Table head */
+.styled-table thead th {
+  background-color: #009879; /* Your theme color */
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 15px;
+}
+
+/* Table body */
+.styled-table tbody td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: thin solid #dddddd; /* Light border for each row */
+}
+
+/* Table rows hover effect */
+.styled-table tbody tr:hover {
+  background-color: #f3f3f3;
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+/* Additional styles to ensure the layout is as expected */
+.styled-table thead th {
+  vertical-align: bottom; /* Align the headers to the bottom */
+}
+
+.styled-table tbody td {
+  vertical-align: middle; /* Vertically center the content of table cells */
+}
+.table-container {
+    background-color: #ffffff; /* or any other color you want for the background */
+    border-radius: 16px; /* Adjust the radius as needed */
+    -webkit-box-shadow: 0px 5px 15px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    box-shadow: 0px 5px 15px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    overflow: hidden; /* Ensures the inside table corners don't stick out */
+}
+.online-dot {
+  height: 10px;
+  width: 10px;
+  background-color: #00ff00;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  box-shadow: 0 0 8px #00ff00;
+}
+.bronze-background { background-color: rgba(197, 140, 34, 0.815) !important; }
+.gold-background { background-color: #FFD700 !important; } /* Example for second place */
+.silver-background { background-color: #C0C0C0 !important; } /* Example for third place */
+.news-item {
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff; /* Ensuring text is bright for readability */
+  margin-bottom: 10px; /* Space between news items */
+  transition: transform 0.3s, box-shadow 0.3s; /* Transition for hover effects */
+}
+
+/* Hover effect for news items */
+.news-item:hover {
+  transform: scale(1.03); /* Slight zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Increased shadow for a "lifted" effect */
+}
+
+.news-item.info {
+  background-color: #4CAF50; /* Green for info */
+}
+
+.news-item.warning {
+  background-color: #FF9800; /* Orange for warning */
+}
+
+.news-item.critical {
+  background-color: #F44336; /* Red for critical */
+}
+
+/* You might also want to style the timestamps separately */
+.news-timestamp {
+  color: #9E9E9E; /* Lighter text color for the timestamp */
+  font-style: italic;
+}
+/* Text color in timestamp for better readability */
+.news-item .news-timestamp {
+  color: rgba(255, 255, 255, 0.75);
+}
+/* Styling for the timestamp */
+.news-timestamp {
+  color: #CCC; /* Even lighter color for the timestamp */
+  font-style: italic;
+  margin-bottom: 0.5rem; /* Add some space between timestamp and message */
+}
+.news-emoji {
+  font-size: 1.5em; /* Adjust size as needed */
+  margin-right: 5px; /* Adds spacing between the emoji and the timestamp */
+}
+.server-card {
+  /* Background styling */
+  color: #fff; /* White text color for better contrast */
+  background-size: cover; /* Cover the entire card */
+  background-position: center; /* Center the background image */
+  position: relative; /* Needed for positioning inner elements */
+  overflow: hidden; /* Ensure no content goes outside the card */
+  border-radius: 15px; /* Rounded corners for a modern look */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Dark overlay to ensure text readability over the background image */
+.server-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5); /* Black overlay with some transparency */
+  border-radius: inherit; /* Match the border radius of the parent */
+}
+
+/* Server card content should be positioned relative to ensure it's above the overlay */
+.server-card p {
+  position: relative; /* Above the overlay */
+  z-index: 1; /* Higher stack order */
+  margin-bottom: 0.5rem; /* Adjust spacing between paragraphs */
+}
+
+/* Custom badge styles for online/offline status */
+.badge {
+  padding: 0.25em 0.75em;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.bg-gradient-success {
+  background: linear-gradient(45deg, #28a745, #85d798);
+}
+
+.bg-gradient-danger {
+  background: linear-gradient(45deg, #dc3545, #f99a9c);
+}
+iframe::-webkit-scrollbar {
+  display: none;
+}
+
+/* Universal approach: Set a large height and clip the iframe */
+iframe {
+  height: 600px; /* Set a height larger than the content needs */
+  overflow: hidden;
+}
+  </style>
+</head>
+
+<body class="g-sidenav-show dark-version bg-gray-200">
+  {% include '_sidebar.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+    <div class="container-fluid py-4">
+      <div class="row">
+
+
+
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">weekend</i>
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">Notifications/Upcoming Events</p>
+                <h4 class="mb-0"><span class="text-danger text-sm font-weight-bolder"></span>NEWS</h4></span>
+              </div>
+			   <hr class="dark horizontal my-0">
+         <div class="card-footer p-3">
+            {% for news in latest_news_items %}
+            <div class="news-item {{ news['notification_level'].lower() }}">
+              <span class="news-emoji">
+                {% if news['notification_level'].lower() == 'critical' %}
+                ❗❓ <!-- Heavy Exclamation Mark Symbol -->
+                {% elif news['notification_level'].lower() == 'info' %}
+                ✔️ <!-- Information Source Emoji -->
+                {% elif news['notification_level'].lower() == 'warning' %}
+                ⚠️ <!-- Warning Emoji --> 
+                {% endif %}
+              </span>      
+              <span class="news-timestamp" data-timestamp="{{ news['timestamp'] }}"></span> - {{ news['text_message'] }}
+            </div>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">weekend</i>
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">Servers Watched</p>
+                <h4 class="mb-0">{{ Servers_Watched }}</h4> <p class="text-sm mb-0 text-capitalize">AVG Ping: {{ ms_data }} ms</p>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="row">
+              {% for server in server_data %}
+              <div class="col-md-6 mb-4">
+                <div class="card p-3 server-card" style="background-image: url('{{ server[2] }}');">
+                  <!-- Overlay before content ensures text readability -->
+                  <p class="mb-1"><strong>Server Name:</strong> {{ server[1] }}</p>
+                  <p class="mb-0"><strong>Status:</strong>
+                    {% if server[3] == 'Online' or server[3] == 'Offline' %}
+                    <span class="badge badge-sm bg-gradient-{{ 'success' if server[3] == 'Online' else 'danger' }}">{{ server[3] }}</span>
+                    {% else %}
+                    {{ server[3] }}
+                    {% endif %}
+                  </p>
+                  <p class="mb-1"><strong>Ping:</strong> {{ server[4] }}</p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">person</i>
+              </div>
+              <div class="text-end pt-1 float-start slideit">
+                <p class="text-sm mb-0 text-capitalize">Peak Today</p>
+                <h4 class="mb-0">{{ Hour_Online_Total_24 }}</h4>
+              </div>
+              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">person</i>
+              </div>
+              <div class="text-end pt-1 float-end">
+                <p class="text-sm mb-0 text-capitalize">Online Now</p>
+                <h4 class="mb-0"><span class="text-danger text-sm font-weight-bolder"></span>{{ Number_Of_Players_Online_Now }}</h4></span>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+              <p class="mb-0">{{ Connected_Players_Now }}</p>
+                </div>
+            <div class="card-footer p-3">
+              <p class="mb-0">
+                <span class="{{ 'text-danger' if Percentange_Calculated_From_Last_48_Hours.startswith('-') else 'text-success' }} text-sm font-weight-bolder">
+                    {{ Percentange_Calculated_From_Last_48_Hours if Percentange_Calculated_From_Last_48_Hours.startswith('-') else "+" + Percentange_Calculated_From_Last_48_Hours }}
+                </span> {{ 'less than yesterday' if Percentange_Calculated_From_Last_48_Hours.startswith('-') else 'more than yesterday' }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="{{ 'text-danger' if Percentage_Calculated_From_Last_Hour.startswith('-') else 'text-success' }} text-sm font-weight-bolder">
+                  {{ Percentage_Calculated_From_Last_Hour if Percentage_Calculated_From_Last_Hour.startswith('-') else "+" + Percentage_Calculated_From_Last_Hour }}
+              </span> Change from last hour
+          </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">person</i>
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">PLACEHOLDER</p>
+                <h4 class="mb-0"><span class="text-danger text-sm font-weight-bolder"></span>PLACEHOLDER</h4></span>
+              </div>
+            </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+              <p class="mb-0">PLACEHOLDER</p>
+                </div>
+            <hr class="dark horizontal my-0">
+            <div class="card-footer p-3">
+              <p class="mb-0">
+                <span class="{{ 'text-danger' if Percentage_Calculated_From_Last_Hour.startswith('-') else 'text-success' }} text-sm font-weight-bolder">
+                    {{ Percentage_Calculated_From_Last_Hour if Percentage_Calculated_From_Last_Hour.startswith('-') else "+" + Percentage_Calculated_From_Last_Hour }}
+                </span> Change from last hour
+            </p>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-4 col-md-6 mt-4 mb-4">
+        <div class="card z-index-2  ">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+              <div class="chart">
+               <canvas id="myChart" class="chart-canvas" height="150px" width="150px"></canvas>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="mb-0">Daily Online User Count</h6>
+              <hr class="dark horizontal">
+              <div class="d-flex">
+                <i class="material-icons text-sm my-auto me-1">schedule</i>
+                <p class="mb-0 text-sm">Last 7 Days</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-4 col-md-6 mt-4 mb-4">
+          <div class="card z-index-2  ">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                <div class="chart">
+                  <canvas id="uniqueUsersPerHourChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="mb-0 "> Daily Unique Logged In Users (Game Must Support Steam Query)</h6>
+              <p class="text-sm "> {{ Unique_Player_Names_Today }} </p>
+              <hr class="dark horizontal">
+              <div class="d-flex ">
+                <i class="material-icons text-sm my-auto me-1">schedule</i>
+                <p class="mb-0 text-sm"> Total Unique Logged {{ unique_players_daily_number }} </p>
+              </div>
+            </div>
+          </div>
+        </div>          
+        <div class="col-lg-4 mt-4 mb-3">
+          <div class="card z-index-2 ">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                <div class="chart">
+                  <div class="table-container">
+                    <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player Name</th>
+                            <th>Total Time</th>
+                            <th>Last Logged On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rank, player_name, logged_minutes, last_seen, status in leaderboard %}
+                        <tr class="{% if rank == 1 %}gold-background{% elif rank == 2 %}silver-background{% elif rank == 3 %}bronze-background{% endif %}">
+                            <td class="number">
+                              {% if rank == 1 %}👑{% elif rank == 2 %}🥇{% elif rank == 3 %}🥈{% elif rank == 4 %}🥉{% elif rank == 5 %}🏅{% elif rank == 6 %}🎖️{% elif rank == 7 %}🎗️{% elif rank == 8 %}🏵️{% elif rank == 9 %}🥇{% elif rank == 10 %}🥉{% else %}{{ rank }}{% endif %}
+                            </td>
+                            <td class="name">
+                              {% if status == 'Online' %}<span class="online-dot"></span>{% endif %}
+                              {{ player_name }}
+                            </td>
+                            <td class="points">
+                                {% if logged_minutes >= 60 %}
+                                {{ logged_minutes // 60 }} Hours {% if logged_minutes % 60 > 0 %}{{ logged_minutes % 60 }} Minutes{% endif %}
+                                {% else %}
+                                {{ logged_minutes }} Minutes
+                                {% endif %}
+                            </td>
+                            <td class="last-logged-on points" data-timestamp="{{ last_seen }}">{{ last_seen }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="mb-0 ">👑 Leaderboards</h6>
+              <hr class="dark horizontal">
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        // Function to convert timestamps to a more readable format
+        function formatTimestamps() {
+          document.querySelectorAll('.news-timestamp').forEach(function(elem) {
+            const timestamp = elem.getAttribute('data-timestamp');
+            const date = new Date(timestamp);
+            const options = { weekday: 'long', hour: '2-digit', minute: '2-digit', hour12: true };
+            elem.textContent = date.toLocaleTimeString('en-US', options);
+          });
+        }
+        
+        // Convert timestamps when the document is fully loaded
+        document.addEventListener('DOMContentLoaded', formatTimestamps);
+      </script>
+      <script>
+        // This function determines if the given date was last week
+        function wasLastWeek(date) {
+          const today = new Date();
+          const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+          return date > lastWeek && date < today;
+        }
+        
+        // This function formats the date as "Last Saturday at 10 PM" or "3/24/24 at 10 PM"
+        function formatDate(date) {
+          const now = new Date();
+          const dayInMillis = 24 * 60 * 60 * 1000;
+          const yesterday = new Date(now - dayInMillis);
+          const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+          let formattedDate = '';
+        
+          if (date.toDateString() === now.toDateString()) {
+            formattedDate = 'Today at ' + date.toLocaleTimeString('en-US', options);
+          } else if (date.toDateString() === yesterday.toDateString()) {
+            formattedDate = 'Yesterday at ' + date.toLocaleTimeString('en-US', options);
+          } else if (wasLastWeek(date)) {
+            formattedDate = 'Last ' + date.toLocaleDateString('en-US', { weekday: 'long' }) + ' at ' + date.toLocaleTimeString('en-US', options);
+          } else {
+            formattedDate = date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) + ' at ' + date.toLocaleTimeString('en-US', options);
+          }
+          
+          return formattedDate;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+          // Select all the elements with the 'last-logged-on' class
+          const timestamps = document.querySelectorAll('.last-logged-on');
+        
+          timestamps.forEach(function(timestampElement) {
+            // Get the timestamp data
+            const rawTimestamp = timestampElement.getAttribute('data-timestamp');
+            const timestampDate = new Date(rawTimestamp);
+            
+            // Format the date
+            const formattedTimestamp = formatDate(timestampDate);
+            
+            // Replace the content of the <td>
+            timestampElement.textContent = formattedTimestamp;
+          });
+        });
+        </script>
+
+    </div>
+  </main>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+<!-- Place this at the bottom of your HTML, right before the closing </body> tag -->
+<script>
+  // Chart for 'myChart'
+  var ctxMyChart = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctxMyChart, {
+    type: 'bar',
+    data: {
+      labels: {{ labels | tojson }}, // Assuming 'labels' is correctly populated from your Flask template
+      datasets: [{
+        label: 'Max Connected Users Per Day',
+        data: {{ values | tojson }}, // Assuming 'values' is correctly populated from your Flask template
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1, // Adjust if needed
+            color: 'white'
+          }
+        },
+        x: {
+          ticks: {
+            color: 'white'
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+
+  // Chart for 'uniqueUsersPerHourChart'
+  var ctxUniqueUsersPerHourChart = document.getElementById('uniqueUsersPerHourChart').getContext('2d');
+  var uniqueUsersPerHourChart = new Chart(ctxUniqueUsersPerHourChart, {
+    type: 'line',
+    data: {
+      labels: {{ hours_labels|tojson }},
+      datasets: [{
+        label: 'Logged in users per hour',
+        data: {{ unique_users_data|tojson }},
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1, // Adjust if needed
+            color: 'white'
+          }
+        },
+        x: {
+          ticks: {
+            color: 'white'
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: 'white' // This sets the legend text color to white
+          }
+        }
+      }
+    }
+  });
+</script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+</body>
+
+</html>

@@ -1,0 +1,402 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/lol.png">
+  <link rel="icon" type="image/png" href="../assets/lol.png">
+  <title>
+    GamePulse Discord Bot
+  </title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+qdLaVUN7Fbme8MfTJwxH/4y39zJ5Fb8LJ1UueJPCmGzR2B3md/4iSlL+4/P+N3Y" crossorigin="anonymous">
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+.expanded-row {
+    padding-top: 5px;
+    margin-bottom: -15px;
+    padding-left: 5%;
+}
+
+/* CSS for cool mouse-over effects */
+.table tbody tr {
+  transition: box-shadow 0.3s ease; /* Smooth transition effect */
+}
+
+.table tbody tr:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+.text-secondary {
+    color: #ffffff !important;
+}
+.bg-gradient-primary {
+    background-image: linear-gradient(195deg, #2196F3 15%, #1976D2 70%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+iframe::-webkit-scrollbar {
+  display: none;
+}
+
+/* Universal approach: Set a large height and clip the iframe */
+iframe {
+  height: 600px; /* Set a height larger than the content needs */
+  overflow: hidden;
+}
+</style>
+</head>
+
+<body class="g-sidenav-show dark-version bg-gray-200">
+  {% include '_sidebar.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <div class="container-fluid py-4">
+      <div class="row">
+          <div class="col-12">
+              <div class="card my-4">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                      <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                          <h6 class="text-white text-capitalize ps-3">Game Servers Database</h6>
+                      </div>
+                  </div>
+                  <div class="card-body px-0 pb-2">
+
+                    <table class="table align-middle align-items-center mb-0">
+                      <thead>
+                          <tr>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Server Image</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Server Name</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Num Records</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Highest Player Online Count</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">First Timestamp</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Last Timestamp</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for entry in database_data %}
+                          <tr class="main-row" data-server="{{ entry.Server_Name }}">
+                              <td class="align-middle text-center">
+                                  <div class="d-flex align-items-center justify-content-center">
+                                      <img src="{{ entry.Server_Image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="{{ entry.Server_Name }}">
+                                  </div>
+                              </td>
+                              <td class="align-middle text-center">
+                                  <div class="d-flex align-items-center justify-content-center">
+                                      <h6 class="mb-0 text-sm">{{ entry.Server_Name }}</h6>
+                                  </div>
+                              </td>
+                              <td class="align-middle text-center">
+                                  <span class="text-secondary text-xs font-weight-bold">{{ entry.Num_Records }}</span>
+                              </td>
+                              <td class="align-middle text-center">
+                                  <span class="text-secondary text-xs font-weight-bold">{{ entry.Highest_Player_Online_Count }}</span>
+                              </td>
+                              <td class="align-middle text-center">
+                                  <span class="text-secondary text-xs font-weight-bold">{{ entry.First_Timestamp }}</span>
+                              </td>
+                              <td class="align-middle text-center">
+                                  <span class="text-secondary text-xs font-weight-bold">{{ entry.Last_Timestamp }}</span>
+                              </td>
+                              <td class="align-middle text-center">
+                                  {% if entry.Is_Abandoned %}
+                                  <span class="badge bg-danger">Abandoned</span>
+                                  {% else %}
+                                  <span class="badge bg-success">Linked</span>
+                                  {% endif %}
+                              </td>
+                          </tr>
+                          <tr class="expand-row" style="display: none;">
+                              <td colspan="7">
+                                  <div class="expanded-row">
+                                      <button class="btn btn-sm btn-danger" onclick="removeData('{{ entry.Server_Name }}', 7)">Remove 1 Week</button>
+                                      <button class="btn btn-sm btn-danger" onclick="removeData('{{ entry.Server_Name }}', 14)">Remove 2 Weeks</button>
+                                      <button class="btn btn-sm btn-danger" onclick="removeData('{{ entry.Server_Name }}', 21)">Remove 3 Weeks</button>
+                                      <button class="btn btn-sm btn-danger" onclick="removeData('{{ entry.Server_Name }}', 30)">Remove Month</button>
+                                      <button class="btn btn-sm btn-danger" onclick="removeData('{{ entry.Server_Name }}', -1)">Remove All</button>
+                                  </div>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  
+                  
+                      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get all main rows
+            var mainRows = document.querySelectorAll(".main-row");
+    
+            // Loop through each main row
+            mainRows.forEach(function(row) {
+                // Add click event listener
+                row.addEventListener("click", function(event) {
+                    // Toggle visibility of the next sibling row with class "expand-row"
+                    var expandRow = row.nextElementSibling;
+                    if (expandRow) {
+                        if (expandRow.style.display === "none") {
+                            expandRow.style.display = "table-row";
+                        } else {
+                            expandRow.style.display = "none";
+                        }
+                    }
+                });
+            });
+    
+            // Get all buttons inside expand rows
+            var expandButtons = document.querySelectorAll(".expand-row button");
+    
+            // Loop through each button
+            expandButtons.forEach(function(button) {
+                // Add click event listener
+                button.addEventListener("click", function(event) {
+                    // Stop event propagation to prevent toggling of main row visibility
+                    event.stopPropagation();
+                });
+            });
+        });
+    
+        function removeData(serverName, days) {
+            // Create a new FormData object
+            var formData = new FormData();
+    
+            // Append serverName and days to the FormData object
+            formData.append('server_name', serverName);
+            formData.append('days', days);
+    
+            // Send a POST request to the Flask route
+            fetch('/remove-data/' + serverName + '/' + days, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Log the success message
+                console.log(data.message);
+                // Reload the page after successful data removal
+                location.reload();
+            })
+            .catch(error => {
+                // Log any errors
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+    </div>
+  </main>
+ 
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+
+
+
+<!-- Edit Server Modal -->
+<div class="modal fade" id="editServerModal" tabindex="-1" role="dialog" aria-labelledby="editServerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editServerModalLabel">Edit Server</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <form id="editServerForm">
+        <div class="modal-body">
+          <!-- Form fields -->
+          <input type="hidden" id="server_id" name="server_id">
+          <div class="form-group">
+            <label for="server_name">Server Name</label>
+            <input type="text" class="form-control" id="server_name" name="server_name" required>
+          </div>
+          <div class="form-group">
+            <label for="server_ip">Server IP</label>
+            <input type="text" class="form-control" id="server_ip" name="server_ip" required>
+          </div>
+          <div class="form-group">
+            <label for="server_port">Server Port</label>
+            <input type="number" class="form-control" id="server_port" name="server_port" required>
+          </div>
+          <div class="form-group">
+            <label for="server_image">Server Image URL</label>
+            <input type="text" class="form-control" id="server_image" name="server_image">
+          </div>
+          <div class="form-group">
+            <label for="server_emoji">Server Emoji</label>
+            <input type="text" class="form-control" id="server_emoji" name="server_emoji">
+          </div>
+          <div class="form-group">
+            <label for="server_quick_join_url">Server Quick Join URL</label>
+            <input type="text" class="form-control" id="server_quick_join_url" name="server_quick_join_url">
+          </div>
+          <div class="form-group">
+            <label for="users_title">Users Title</label>
+            <input type="text" class="form-control" id="users_title" name="users_title">
+          </div>
+          <div class="form-group">
+            <label for="status_embed">Status Embed</label>
+            <select class="form-control" id="status_embed" name="status_embed">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="server_status_channel_id">Server Status Channel ID</label>
+            <input type="number" class="form-control" id="server_status_channel_id" name="server_status_channel_id">
+          </div>
+          <div class="form-group">
+            <label for="user_online_count_channel_id">User Online Count Channel ID</label>
+            <input type="number" class="form-control" id="user_online_count_channel_id" name="user_online_count_channel_id">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Edit server button click handler
+    document.querySelectorAll('.edit-server-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Extract server data from data attributes of the button
+        const serverId = button.getAttribute('data-id');
+        const serverName = button.getAttribute('data-server-name');
+        const serverIp = button.getAttribute('data-server-ip');
+        const serverPort = button.getAttribute('data-server-port');
+        const serverImage = button.getAttribute('data-server-image');
+        const serverEmoji = button.getAttribute('data-server-emoji');
+        const serverQuickJoinUrl = button.getAttribute('data-server-quick-join-url');
+        const usersTitle = button.getAttribute('data-users-title');
+        const statusEmbed = button.getAttribute('data-status-embed');
+        const serverStatusChannelId = button.getAttribute('data-server-status-channel-id');
+        const userOnlineCountChannelId = button.getAttribute('data-user-online-count-channel-id');
+
+        // Log the variables to console for debugging
+        // console.log('Emoji:', button.getAttribute('data-server-emoji'), 'Quick Join URL:', button.getAttribute('data-server-quick-join-url'), 'Users Title:', button.getAttribute('data-users-title'), 'Status Channel ID:', button.getAttribute('data-server-status-channel-id'), 'Online Count Channel ID:', button.getAttribute('data-user-online-count-channel-id'));
+  
+        // Populate the form fields with extracted data
+        console.log("Setting server_id to:", serverId);
+        document.getElementById('server_id').value = serverId;
+        document.getElementById('server_name').value = serverName;
+        document.getElementById('server_ip').value = serverIp;
+        document.getElementById('server_port').value = serverPort;
+        document.getElementById('server_image').value = serverImage;
+        document.getElementById('server_emoji').value = serverEmoji;
+        document.getElementById('server_quick_join_url').value = serverQuickJoinUrl;
+        document.getElementById('users_title').value = usersTitle;
+        document.getElementById('status_embed').value = statusEmbed;
+        document.getElementById('server_status_channel_id').value = serverStatusChannelId;
+        document.getElementById('user_online_count_channel_id').value = userOnlineCountChannelId;
+  
+        // Show the modal with jQuery
+        $('#editServerModal').modal('show');
+      });
+    });
+  
+    // Form submission with fetch API
+    document.getElementById('editServerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('/update-server', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.success) {
+          // Close the modal and reload to show changes
+          $('#editServerModal').modal('hide');
+          location.reload();
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  
+    // Optional: If still facing issue with modal close, ensure Bootstrap and jQuery are correctly loaded
+  });
+  </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Listen for clicks on delete buttons
+      document.querySelectorAll('.delete-server-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          if (confirm('Are you sure you want to delete this server?')) {
+            const serverId = button.getAttribute('data-id');
+            fetch(`/delete-server/${serverId}`, {
+              method: 'POST',
+              // Include any necessary headers, CSRF tokens, etc.
+            })
+            .then(response => response.json())
+            .then(data => {
+              if(data.success) {
+                alert('Server deleted successfully!');
+                location.reload(); // Refresh the page to update the list of servers
+              } else {
+                alert('An error occurred. Please try again.');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+          }
+        });
+      });
+    });
+    </script>
+
+
+</body>
+
+</html>
