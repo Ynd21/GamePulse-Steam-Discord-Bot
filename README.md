@@ -79,7 +79,7 @@ client_id = Discord Bot Client ID
 client_secret = Discord Bot Secret
 redirect_uri = Discord Bot Redirect URL
 avatar = assets/lol.png (default - add anything you want into the assets folder, ref it here for the avatar image)
-bot_username = Bot's Name
+bot_username = Bots Name
 bot_version = Just a Number
 community_name = Your Community Name
 ```
