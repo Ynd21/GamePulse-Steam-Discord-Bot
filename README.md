@@ -57,6 +57,12 @@ Contributions are always welcome! Submit a request!
   </tbody>
 </table>
 
+## Known Issues
+- Commands folder / slash_commands.py does nothing
+- Resizing browser changes the navbar color
+- Misaligned elements on WebUI
+- Most likely unmanagable with over 30+ days of data (testing now)
+
 ## Tech Stack
 
 python, py-cord, flask, bootstrap, [Creative Tim](https://www.creative-tim.com/)
