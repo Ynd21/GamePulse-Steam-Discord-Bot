@@ -76,54 +76,55 @@ async def update_discord_message(bot, channel_id, query_results):
             else:
                 message_id = None
 
-    channel = bot.get_channel(channel_id)
-    message = None
-    if message_id:
-        try:
-            message = await channel.fetch_message(message_id)
-        except discord.NotFound:
-            # Message does not exist, reset message_id to None to send a new message
-            message_id = None
+            channel = bot.get_channel(channel_id)
+            message = None
+            if message_id:
+                try:
+                    message = await channel.fetch_message(message_id)
+                except discord.NotFound:
+                    # Message does not exist, reset message_id to None to send a new message
+                    message_id = None
 
-    embed = discord.Embed(title=f"{community_name} Server Status", color=discord.Color.green() if all(result['Status'] == 'Online' for result in query_results) else discord.Color.red())
-    embed.set_footer(text=f"📊 Total Users {sum(result.get('Players', 0) for result in query_results if result['Status'] == 'Online')} - 🤖 GamePulse V{bot_version} - 🕒 Updated:")
-    embed.timestamp = discord.utils.utcnow()
-    embed.set_image(url=status_image_url)  # Assuming status_image_url is predefined
+            embed = discord.Embed(title=f"{community_name} Server Status", color=discord.Color.green() if all(result['Status'] == 'Online' for result in query_results) else discord.Color.red())
+            embed.set_footer(text=f"📊 Total Users {sum(result.get('Players', 0) for result in query_results if result['Status'] == 'Online')} - 🤖 GamePulse V{bot_version} - 🕒 Updated:")
+            embed.timestamp = discord.utils.utcnow()
+            embed.set_image(url=status_image_url)  # Assuming status_image_url is predefined
 
-    field_count = 0
-    for result in query_results:
-        # Fetch server details
-        server_details = await get_server_details(result['GameName'])  # This function needs to be async
-        if server_details:
-            # Assuming server_details returns a tuple/list with the expected values
-            server_ip, server_port, quick_connect_url, server_emoji = server_details
-            user_title = await get_user_title(result['GameName'])  # This function needs to be async
-            
-            # Add the server information field
-            embed.add_field(name=f"{server_emoji} {result['GameName']}",
-                            value=f"⚡ *Status:* {'🟢' if result['Status'] == 'Online' else '☠'}\n"
-                                  f"👥 *{user_title}:* **{result.get('Players', 'N/A')}**\n"
-                                  f"----------------------\n"
-                                  f"💻 IP: {server_ip}\n"
-                                  f"🔒 Port: {server_port}\n"
-                                  f"🚀 Connect: [Launch]({quick_connect_url})",
-                            inline=True)
-            field_count += 1
-            # After every third field, add an invisible field to create a visual break
-            if field_count % 3 == 0 and field_count < len(query_results):
-                embed.add_field(name="\u200b", value="\u200b", inline=False)
+            field_count = 0
+            for result in query_results:
+                # Fetch server details
+                server_details = await get_server_details(result['GameName'])  # This function needs to be async
+                if server_details:
+                    # Assuming server_details returns a tuple/list with the expected values
+                    server_ip, server_port, quick_connect_url, server_emoji = server_details
+                    user_title = await get_user_title(result['GameName'])  # This function needs to be async
 
-    # Editing or sending the message
-    if message_id and message:
-        await message.edit(embed=embed)
-        log_message("Discord Message edited in Status Channel.")
-    else:
-        sent_message = await channel.send(embed=embed)
-        # Update or insert the new message_id into the database
-        await cur.execute("DELETE FROM embed_ids WHERE embed_name = ?", ("server_status",))
-        await cur.execute("INSERT INTO embed_ids (embed_name, message_id) VALUES (?, ?)", ("server_status", sent_message.id))
-        await conn.commit()
-        log_message("New message sent into Status Channel.")
+                    # Add the server information field
+                    embed.add_field(name=f"{server_emoji} {result['GameName']}",
+                                    value=f"⚡ *Status:* {'🟢' if result['Status'] == 'Online' else '☠'}\n"
+                                          f"👥 *{user_title}:* **{result.get('Players', 'N/A')}**\n"
+                                          f"----------------------\n"
+                                          f"💻 IP: {server_ip}\n"
+                                          f"🔒 Port: {server_port}\n"
+                                          f"🚀 Connect: [Launch]({quick_connect_url})",
+                                    inline=True)
+                    field_count += 1
+                    # After every third field, add an invisible field to create a visual break
+                    if field_count % 3 == 0 and field_count < len(query_results):
+                        embed.add_field(name="\u200b", value="\u200b", inline=False)
+
+            # Editing or sending the message
+            if message_id and message:
+                await message.edit(embed=embed)
+                log_message("Discord Message edited in Status Channel.")
+            else:
+                sent_message = await channel.send(embed=embed)
+                # Update or insert the new message_id into the database
+                await cur.execute("DELETE FROM embed_ids WHERE embed_name = ?", ("server_status",))
+                await cur.execute("INSERT INTO embed_ids (embed_name, message_id) VALUES (?, ?)", ("server_status", sent_message.id))
+                await conn.commit()
+                log_message("New message sent into Status Channel.")
+
 
 # Function to update bot's presence with total online users
 async def update_bot_presence(bot, query_results):
