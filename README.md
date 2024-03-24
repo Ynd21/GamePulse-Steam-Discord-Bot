@@ -68,8 +68,8 @@ Install dependencies
 
 Edit Settings.ini
 
-```bash
-  [DISCORD]
+```ini
+[DISCORD]
 token = Your Discord Token
 channel_id = Channel ID to post Server Status 
 status_image = Banner Image Used for the Embed from above
