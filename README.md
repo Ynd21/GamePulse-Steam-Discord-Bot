@@ -93,7 +93,7 @@ guild_id = Discord Guild ID
 allowed_user_ids = Discord User ID, seperated by a coma 
 client_id = Discord Bot Client ID
 client_secret = Discord Bot Secret
-redirect_uri = Discord Bot Redirect URL
+redirect_uri = Discord Bot Redirect URL (default: http://localhost:8000/auth/callback)
 avatar = assets/lol.png (default - add anything you want into the assets folder, ref it here for the avatar image)
 bot_username = Bots Name
 bot_version = Just a Number
@@ -104,5 +104,11 @@ Start the server
 
 ```bash
   python bot.py
+```
+
+Visit Web UI
+
+```bash
+  Navigate to http://localhost:8000
 ```
 
