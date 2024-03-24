@@ -51,7 +51,11 @@ Contributions are always welcome! Submit a request!
 <tr>
 	<td width="50%"><img src="https://i.imgur.com/jwmT3C9.png"/></td>
       <td width="50%"><img src="https://i.imgur.com/cZVYTsg.png"/></td>
-</tr>	  
+</tr>
+    <tr>
+      <td width="50%"><img src="https://i.imgur.com/Myd3h8Y.png"/></td>
+      <td width="50%"><img src="https://i.imgur.com/UUQDolS.png"/></td>
+    </tr>	  
   </tbody>
 </table>
 
