@@ -41,9 +41,7 @@ Contributions are always welcome! Submit a request!
 
 ## Tech Stack
 
-**Client:** python, py-cord, flask, bootstrap, [Creative Tim](https://www.creative-tim.com/)
-
-**Server:** Node, Express
+python, py-cord, flask, bootstrap, [Creative Tim](https://www.creative-tim.com/)
 
 
 ## Run the bot
