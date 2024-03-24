@@ -36,11 +36,20 @@ Contributions are always welcome! Submit a request!
 
 ## Screenshots
 
-| Discord            |  WebUI |
-:-------------------------:|:-------------------------:
-![App Screenshot](https://i.imgur.com/tZw0LMy.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
-![App Screenshot](https://i.imgur.com/jwmT3C9.png) |  ![App Screenshot](https://i.imgur.com/cZVYTsg.png)
-![App Screenshot](https://i.imgur.com/Myd3h8Y.png) |  ![App Screenshot](https://i.imgur.com/UUQDolS.png)
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="50%">Discord</th>
+      <th width="50%">WebUI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td width="50%"><img src="https://i.imgur.com/tZw0LMy.png"/></td>
+      <td width="50%"><img src="https://i.imgur.com/cZVYTsg.png"/></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Tech Stack
 
