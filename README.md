@@ -24,7 +24,7 @@ GamePulse uses Python-A2S to Query Steam Game Servers and updates Voice Channels
 
 - Easy to use WebUI
 - Manage Servers, View History, Look at Leaderboards via the Web!
-- Updates Discord Voice Channels with Server Status and Player Count
+- Updates Discord Voice Channels with Server Status and Player Count every 2 minutes
 - Embeds a Message in a Text Channel Displaying Server Information (Status, Players, Quick Join URL)
 - Add Servers via Slash Commands and look at Server History
 
